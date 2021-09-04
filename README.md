@@ -1,5 +1,5 @@
 <h1 align="center">
-    Name of The Project
+    Hub Profile API
 </h1>
 <details>
   <summary>🇺🇸 English version</summary>
