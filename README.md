@@ -43,7 +43,7 @@
 
   <h2 id="author"> 💻 Author </h2>
 
-  By Name ❤
+  By Henrique Goulart ❤
 
   <h2 id="license"> 📝 License </h2>
 
@@ -94,7 +94,7 @@
 
   <h2 id="autor"> 💻 Autor </h2>
 
-  By Name ❤
+  By Henrique Goulart ❤
 
   <h2 id="licenca"> 📝 Licença </h2>
 
