@@ -1,4 +1,4 @@
-module github.com/aHub-Tech/hub-profile-api
+module github.com/ahub-tech/hub-profile-api
 
 go 1.17
 
