@@ -51,5 +51,9 @@ func Route(router *echo.Echo, port string) {
 		return err
 	})
 
+	router.GET("/all", func(c echo.Context) error {
+		return c.JSON(200, profiles)
+	})
+
 	router.Start(":" + os.Getenv("PORT"))
 }
