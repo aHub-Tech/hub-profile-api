@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/ahub-tech/hub-profile-api/profile"
 	"github.com/henriquetied472/logplus"
@@ -50,5 +51,5 @@ func Route(router *echo.Echo, port string) {
 		return err
 	})
 
-	router.Start(port)
+	router.Start(os.Getenv("PORT"))
 }
