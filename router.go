@@ -51,5 +51,5 @@ func Route(router *echo.Echo, port string) {
 		return err
 	})
 
-	router.Start(os.Getenv("PORT"))
+	router.Start(":" + os.Getenv("PORT"))
 }
