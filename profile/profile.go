@@ -1,5 +1,9 @@
 package profile
 
+import (
+	//"github.com/ahub-tech/hub-profile-api/db"
+)
+
 type Profile struct {
 	FullName     string
 	Age          string
@@ -12,8 +16,12 @@ type Profile struct {
 	Autorization string
 }
 
-func NewProfile(fn, age, corp, exp, lkin, tw, fb, insta, aut string) Profile {
-	return Profile{fn, age, corp, exp, lkin, tw, fb, insta, aut}
+/*func LoadProfiles() []Profile {
+
+}*/
+
+func NewProfile(fn, age, corp, exp, lkin, tw, fb, ig, aut string) Profile {
+	return Profile{fn, age, corp, exp, lkin, tw, fb, ig, aut}
 }
 
 func(p *Profile) EditInfo(field string, value string) {

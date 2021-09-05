@@ -1,0 +1,4 @@
+dbName: "Cluster0"
+dbUser: "hubdbroot"
+dbPass: "ISQ0zawYigoejYYt"
+dbStringConnection: "mongodb+srv://hubdbroot:ISQ0zawYigoejYYt@cluster0.umlw4.mongodb.net/Cluster0?retryWrites=true&w=majority"

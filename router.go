@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/ahub-tech/hub-profile-api/db"
 	"github.com/ahub-tech/hub-profile-api/profile"
 	"github.com/henriquetied472/logplus"
 	"github.com/labstack/echo"
@@ -28,7 +29,10 @@ func Route(router *echo.Echo, port string) {
 	router.Use(middleware.Recover())
 
 	router.POST("/register", func(c echo.Context) error {
-		profiles = append(profiles, profile.NewProfile(c.QueryParam("fullname"), c.QueryParam("age"), c.QueryParam("corp"), c.QueryParam("exp"), c.QueryParam("lkin"), c.QueryParam("tw"), c.QueryParam("fb"), c.QueryParam("insta"), c.QueryParam("aut")))
+		rProfile := profile.NewProfile(c.QueryParam("fullname"), c.QueryParam("age"), c.QueryParam("corp"), c.QueryParam("exp"), c.QueryParam("lkin"), c.QueryParam("tw"), c.QueryParam("fb"), c.QueryParam("ig"), c.QueryParam("aut"))
+		profiles = append(profiles, rProfile)
+
+		db.AddProfile(rProfile)
 
 		logplus.Debugf("%v", profiles)
 
@@ -39,20 +43,21 @@ func Route(router *echo.Echo, port string) {
 	router.GET("/search/:name", func(c echo.Context) error {
 		name := c.Param("name")
 		var err error
+		db.SearchProfile(name)
 
 		for _, v := range profiles {
 			if v.FullName != name {
 				continue
 			}
 
-			err = c.JSON(200, v)
+			err = c.JSON(http.StatusOK, v)
 		}
 
 		return err
 	})
 
 	router.GET("/all", func(c echo.Context) error {
-		return c.JSON(200, profiles)
+		return c.JSON(http.StatusOK, profiles)
 	})
 
 	router.Start(":" + os.Getenv("PORT"))
