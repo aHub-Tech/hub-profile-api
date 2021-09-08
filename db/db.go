@@ -42,10 +42,11 @@ func connect() *mongo.Client {
 	return client
 }
 
-func SearchProfile(query string) {
+func SearchProfile(query string) profile.Profile {
 	client := connect()
 	defer client.Disconnect(ctx)
 	defer cancel()
+	var res profile.Profile
 
 	profilesClt := client.Database("hub").Collection("profiles")
 
@@ -57,9 +58,25 @@ func SearchProfile(query string) {
 	err = cursor.All(ctx, &profiles)
 	check("All results: ", err)
 
-	for _, profile := range profiles {
-		logplus.Debug(fmt.Sprint(profile))
+	for _, perfil := range profiles {
+		if perfil["fullname"] != query {
+			continue
+		}
+
+		res = profile.Profile{
+			FullName: fmt.Sprint(perfil["fullname"]),
+			Age: fmt.Sprint(perfil["age"]),
+			Corporation: fmt.Sprint(perfil["corp"]),
+			Experience: fmt.Sprint(perfil["exp"]),
+			LinkedIn: fmt.Sprint(perfil["lkin"]),
+			Twitter: fmt.Sprint(perfil["tw"]),
+			Facebook: fmt.Sprint(perfil["fb"]),
+			Instagram: fmt.Sprint(perfil["ig"]),
+			Autorization: fmt.Sprint(perfil["aut"]),
+		}
 	}
+
+	return res
 }
 
 func AddProfile(p profile.Profile) {
@@ -67,8 +84,7 @@ func AddProfile(p profile.Profile) {
 	defer client.Disconnect(ctx)
 	defer cancel()
 
-	hubdb := client.Database("hub")
-	profilesClt := hubdb.Collection("profiles")
+	profilesClt := client.Database("hub").Collection("profiles")
 
 	_, err := profilesClt.InsertOne(ctx, bson.D{
 		{Key: "fullname", Value: p.FullName},
@@ -83,4 +99,36 @@ func AddProfile(p profile.Profile) {
 	})
 
 	check("Insert into: ", err)
+}
+
+func AllProfiles() []profile.Profile {
+	client := connect()
+	defer client.Disconnect(ctx)
+	defer cancel()
+
+	var bsonProfiles []bson.M
+	var profiles []profile.Profile
+
+	profilesClt := client.Database("hub").Collection("profiles")
+	cursor, err := profilesClt.Find(ctx, bson.M{})
+	check("Find all profiles: ", err)
+
+	err = cursor.All(ctx, &bsonProfiles)
+	check("All find: ", err)
+
+	for _, perfil := range bsonProfiles {
+		profiles = append(profiles, profile.Profile{
+			FullName: fmt.Sprint(perfil["fullname"]),
+			Age: fmt.Sprint(perfil["age"]),
+			Corporation: fmt.Sprint(perfil["corp"]),
+			Experience: fmt.Sprint(perfil["exp"]),
+			LinkedIn: fmt.Sprint(perfil["lkin"]),
+			Twitter: fmt.Sprint(perfil["tw"]),
+			Facebook: fmt.Sprint(perfil["fb"]),
+			Instagram: fmt.Sprint(perfil["ig"]),
+			Autorization: fmt.Sprint(perfil["aut"]),
+		})
+	}
+
+	return profiles
 }
