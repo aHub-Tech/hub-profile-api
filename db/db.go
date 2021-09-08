@@ -42,7 +42,7 @@ func connect() *mongo.Client {
 	return client
 }
 
-func SearchProfile(query string) profile.Profile {
+func SearchProfile(query string) (profile.Profile, error) {
 	client := connect()
 	defer client.Disconnect(ctx)
 	defer cancel()
@@ -76,21 +76,26 @@ func SearchProfile(query string) profile.Profile {
 		}
 	}
 
-	return res
+	return res, nil
 }
 
-func AddProfile(p profile.Profile) {
+func AddProfile(p profile.Profile) error {
 	client := connect()
 	defer client.Disconnect(ctx)
 	defer cancel()
 
 	profilesClt := client.Database("hub").Collection("profiles")
 
+	if p.Autorization != "yes" {
+		return fmt.Errorf("Client not autorizes the public access for the his informations")
+	}
+
 	_, err := profilesClt.InsertOne(ctx, bson.D{
 		{Key: "fullname", Value: p.FullName},
 		{Key: "age", Value: p.Age},
 		{Key: "corp", Value: p.Corporation},
 		{Key: "exp", Value: p.Experience},
+		{Key: "langs", Value: p.Languages},
 		{Key: "lkin", Value: p.LinkedIn},
 		{Key: "tw", Value: p.Twitter},
 		{Key: "fb", Value: p.Facebook},
@@ -99,6 +104,7 @@ func AddProfile(p profile.Profile) {
 	})
 
 	check("Insert into: ", err)
+	return nil
 }
 
 func AllProfiles() []profile.Profile {
@@ -122,6 +128,7 @@ func AllProfiles() []profile.Profile {
 			Age: fmt.Sprint(perfil["age"]),
 			Corporation: fmt.Sprint(perfil["corp"]),
 			Experience: fmt.Sprint(perfil["exp"]),
+			Languages: fmt.Sprint(perfil["langs"]),
 			LinkedIn: fmt.Sprint(perfil["lkin"]),
 			Twitter: fmt.Sprint(perfil["tw"]),
 			Facebook: fmt.Sprint(perfil["fb"]),

@@ -21,20 +21,24 @@
 
   <h2 id="objective" > 🎯 Objectives </h2>
 
-  A brief description about the project and how the project works
+  Provide an easier life for Devs to find each other
 
   <h2 id="technologies"> 🛠 Technologies </h2>
 
   The tools used in the construction of the project were:
 
-  - [Name Tech](UrlForTheTech)
+  - [Golang](https://golang.org)
+  - [Echo](https://echo.labstack.com)
+  - [Mongo DB](https://mongodb.com)
 
   <h2 id="usage" > 👷 Usage </h2>
 
-  - Technologies needed to run locally.
+  No tecnology is required to run localy
 
   ```bash
-  # Commands used to start the project.
+  windows: Execute the .exe file
+  linux: Execute the application
+  osx: Execute the application
   ```
 
   <h2 id="contribution"> 🤝Contribution </h2>
@@ -71,20 +75,24 @@
 
   <h2 id="objetivos" > 🎯 Objetivos </h2>
 
-  Uma breve descrição sobre o projeto e como ele funciona
+  Proporcionar uma vida mais facil para os Devs se encontrarem
 
   <h2 id="tecnologia"> 🛠 Tecnologias </h2>
 
   As ferramentas utilizadas na construção do projeto foram:
 
-  - [Name Tech](UrlForTheTech)
+  - [Golang](https://golang.org)
+  - [Echo](https://echo.labstack.com)
+  - [Mongo DB](https://mongodb.com)
 
   <h2 id="usos" > 👷 Como usar? </h2>
 
-  - Tecnologias necessárias para rodar localmente.
+  Nenhuma tecnologia nessesária para rodar localmente
 
   ```bash
-  # Comandos usados para iniciar o projeto.
+  windows: Executa o arquivo .exe
+  linux: Executa a aplicação
+  osx: Executa a aplicação
   ```
 
   <h2 id="contribuicao"> 🤝 Contribuições </h2>
@@ -98,5 +106,5 @@
 
   <h2 id="licenca"> 📝 Licença </h2>
 
-  - [Arquivo de Licença](./LICENSE.md)
+  - [Arquivo de Licença](./LICENSE)
 </details>
